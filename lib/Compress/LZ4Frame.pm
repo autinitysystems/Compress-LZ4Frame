@@ -11,7 +11,7 @@ use Exporter qw(import);
 
 __PACKAGE__->load($VERSION);
 
-our @EXPORT_OK = qw(compress compress_checksum);
+our @EXPORT_OK = qw(compress compress_checksum decompress);
 our %EXPORT_TAGS = (all => \@EXPORT_OK);
 
 1;
