@@ -1,4 +1,5 @@
 package Compress::LZ4Frame;
+# ABSTRACT: Compression package using the lz4frame library
 
 use 5.010_001;
 use strict;

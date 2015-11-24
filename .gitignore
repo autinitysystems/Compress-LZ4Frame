@@ -1,0 +1,4 @@
+# dist stuff
+/Compress-LZ4Frame-*.tar.gz
+/Compress-LZ4Frame-*/
+
