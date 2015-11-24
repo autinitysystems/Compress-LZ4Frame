@@ -4,10 +4,15 @@ package Compress::LZ4Frame;
 use 5.010_001;
 use strict;
 use warnings;
+use vars qw($VERSION);
 
 use base qw(XSLoader);
+use Exporter qw(import);
 
 __PACKAGE__->load($VERSION);
+
+our @EXPORT_OK = qw(compress compress_checksum);
+our %EXPORT_TAGS = (all => \@EXPORT_OK);
 
 1;
 
