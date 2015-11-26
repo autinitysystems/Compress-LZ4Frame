@@ -5,7 +5,6 @@
 use strict;
 use warnings;
 
-use 5.010_001;
 use ExtUtils::MakeMaker;
 
 my %WriteMakefileArgs = (
@@ -16,20 +15,8 @@ my %WriteMakefileArgs = (
   },
   "DISTNAME" => "Compress-LZ4Frame",
   "LICENSE" => "perl",
-  "MIN_PERL_VERSION" => "5.010_001",
   "NAME" => "Compress::LZ4Frame",
-  "PREREQ_PM" => {
-    "Exporter" => 0,
-    "XSLoader" => 0,
-    "base" => 0,
-    "strict" => 0,
-    "vars" => 0,
-    "warnings" => 0
-  },
-  "TEST_REQUIRES" => {
-    "Test::More" => 0,
-    "constant" => 0
-  },
+  "PREREQ_PM" => {},
   "VERSION" => "0.002",
   "test" => {
     "TESTS" => "t/*.t"
@@ -41,16 +28,7 @@ my %WriteMakefileArgs = (
     OBJECT => '${O_FILES}',
 );
 
-my %FallbackPrereqs = (
-  "Exporter" => 0,
-  "Test::More" => 0,
-  "XSLoader" => 0,
-  "base" => 0,
-  "constant" => 0,
-  "strict" => 0,
-  "vars" => 0,
-  "warnings" => 0
-);
+my %FallbackPrereqs = ();
 
 unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
   delete $WriteMakefileArgs{TEST_REQUIRES};
