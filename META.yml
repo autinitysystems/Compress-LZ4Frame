@@ -12,4 +12,4 @@ meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: '1.4'
 name: Compress-LZ4Frame
-version: '0.003'
+version: '0.004'
