@@ -1,7 +1,6 @@
 sudo: false
 language: perl
 perl:
-   - 5.10.1
    - '5.12'
    - '5.14'
    - '5.16'
@@ -9,8 +8,6 @@ perl:
    - '5.20'
    - '5.22'
 matrix:
-   allow_failures:
-      - perl: 5.10.1
    fast_finish: true
 before_install:
    - git config --global user.name "TravisCI"
