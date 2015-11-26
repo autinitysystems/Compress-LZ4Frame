@@ -20,6 +20,7 @@ my %WriteMakefileArgs = (
   "NAME" => "Compress::LZ4Frame",
   "PREREQ_PM" => {
     "Exporter" => 0,
+    "Pod::Elemental::Transformer::List" => 0,
     "XSLoader" => 0,
     "base" => 0,
     "strict" => 0,
@@ -43,6 +44,7 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "Exporter" => 0,
+  "Pod::Elemental::Transformer::List" => 0,
   "Test::More" => 0,
   "XSLoader" => 0,
   "base" => 0,

@@ -16,6 +16,7 @@ meta-spec:
 name: Compress-LZ4Frame
 requires:
   Exporter: '0'
+  Pod::Elemental::Transformer::List: '0'
   XSLoader: '0'
   base: '0'
   perl: 5.010_001
