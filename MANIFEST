@@ -6,7 +6,6 @@ MANIFEST
 META.yml
 Makefile.PL
 README
-README.md
 dist.ini
 lib/Compress/LZ4Frame.pm
 lz4.c
