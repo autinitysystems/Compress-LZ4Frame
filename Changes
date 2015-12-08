@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.006     2015-12-08 14:51:41+01:00 Europe/Berlin
+
 Maybe tags now work in Travis CI
 Added looks_like_lz4frame function
 
