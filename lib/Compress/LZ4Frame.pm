@@ -1,6 +1,6 @@
 package Compress::LZ4Frame;
 # ABSTRACT: Compression package using the lz4frame library
-$Compress::LZ4Frame::VERSION = '0.005';
+$Compress::LZ4Frame::VERSION = '0.006';
 use 5.010_001;
 use strict;
 use warnings;
@@ -11,7 +11,7 @@ use Exporter qw(import);
 
 __PACKAGE__->load($VERSION);
 
-our @EXPORT_OK = qw(compress compress_checksum decompress);
+our @EXPORT_OK = qw(compress compress_checksum decompress looks_like_lz4frame);
 our %EXPORT_TAGS = (all => \@EXPORT_OK);
 
 1;
@@ -28,7 +28,7 @@ Compress::LZ4Frame - Compression package using the lz4frame library
 
 =head1 VERSION
 
-version 0.005
+version 0.006
 
 =head1 SYNOPSIS
 
@@ -41,6 +41,10 @@ version 0.005
     my $compressed = compress($packed);
     # or with checksum
     my $compressed = compress_checksum($packed);
+
+    # check data
+    looks_like_lz4frame($compressed);   # some true value
+    looks_like_lz4frame($packed);       # some false value
 
     # decompress
     my $decompressed = decompress($compressed);
@@ -66,6 +70,12 @@ which will be checked by decompress.
     $data = decompress($compressed)
 
 Decompresses the given data.
+
+=head2 looks_like_lz4frame
+
+    $okay = looks_like_lz4frame($data)
+
+Checks the given data for a valid LZ4 frame.
 
 =head1 COMPATIBILITY
 

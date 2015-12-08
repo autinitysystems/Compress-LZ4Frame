@@ -117,3 +117,44 @@ decompress(sv)
     OUTPUT:
         RETVAL
 
+int
+looks_like_lz4frame(sv)
+    SV * sv
+    PREINIT:
+        LZ4F_decompressionContext_t ctx;
+        LZ4F_frameInfo_t info;
+        char * src;
+        size_t src_len;
+        size_t result;
+    CODE:
+        SvGETMAGIC(sv);
+        if (SvROK(sv) && !SvAMAGIC(sv)) {
+            sv = SvRV(sv);
+            SvGETMAGIC(sv);
+        }
+        if (!SvOK(sv))
+            XSRETURN_NO;
+
+        src = SvPVbyte(sv, src_len);
+        if (!src_len)
+            XSRETURN_NO;
+
+        result = LZ4F_createDecompressionContext(&ctx, LZ4F_VERSION);
+        if (LZ4F_isError(result)) {
+            warn("Could not create decompression context: %s", LZ4F_getErrorName(result));
+            XSRETURN_UNDEF;
+        }
+
+        result = LZ4F_getFrameInfo(ctx, &info, src, &src_len);
+        if (LZ4F_isError(result)) {
+            /*
+             * No warning: we actually just wanted to check if this is valid LZ4 Frame data
+             * warn("Could not read frame info: %s", LZ4F_getErrorName(result));
+             */
+            LZ4F_freeDecompressionContext(ctx);
+            XSRETURN_NO;
+        }
+
+        LZ4F_freeDecompressionContext(ctx);
+        XSRETURN_YES;
+

@@ -1,3 +1,7 @@
+0.006     2015-12-08 14:50:36+01:00 Europe/Berlin
+
+Maybe tags now work in Travis CI
+
 0.005     2015-12-08 14:12:42+01:00 Europe/Berlin
 
 Might be compatible with nmake now.
