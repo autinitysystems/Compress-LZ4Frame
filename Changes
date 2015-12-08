@@ -1,5 +1,10 @@
 {{$NEXT}}
 
+Maybe tags now work in Travis CI
+Added looks_like_lz4frame function
+
+0.005     2015-12-08 14:12:42+01:00 Europe/Berlin
+
 Might be compatible with nmake now.
 
 0.004     2015-11-26 13:09:29+01:00 Europe/Berlin

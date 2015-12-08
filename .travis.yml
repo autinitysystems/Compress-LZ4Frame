@@ -18,6 +18,7 @@ install:
    - cpanm --quiet --notest --skip-satisfied Dist::Zilla
    - dzil authordeps --missing | cpanm --quit --notest
 script:
+   - git checkout -b travis_build
    - dzil build
    - dzil test
 

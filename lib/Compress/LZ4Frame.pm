@@ -11,7 +11,7 @@ use Exporter qw(import);
 
 __PACKAGE__->load($VERSION);
 
-our @EXPORT_OK = qw(compress compress_checksum decompress);
+our @EXPORT_OK = qw(compress compress_checksum decompress looks_like_lz4frame);
 our %EXPORT_TAGS = (all => \@EXPORT_OK);
 
 1;
@@ -27,6 +27,10 @@ our %EXPORT_TAGS = (all => \@EXPORT_OK);
     my $compressed = compress($packed);
     # or with checksum
     my $compressed = compress_checksum($packed);
+
+    # check data
+    looks_like_lz4frame($compressed);   # some true value
+    looks_like_lz4frame($packed);       # some false value
 
     # decompress
     my $decompressed = decompress($compressed);
@@ -52,6 +56,12 @@ which will be checked by decompress.
     $data = decompress($compressed)
 
 Decompresses the given data.
+
+=head2 looks_like_lz4frame
+
+    $okay = looks_like_lz4frame($data)
+
+Checks the given data for a valid LZ4 frame.
 
 =head1 COMPATIBILITY
 
