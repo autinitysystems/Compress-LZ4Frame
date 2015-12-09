@@ -107,20 +107,4 @@ This software is copyright (c) 2015 by afr-consulting GmbH.
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
-=head1 CONTRIBUTORS
-
-=for stopwords Felix Bytow A. Sinan Ünür
-
-=over 4
-
-=item *
-
-Felix Bytow <felix.bytow@autinity.de> (DRAKO)
-
-=item *
-
-A. Sinan Ünür <nanis@unur.com> (NANIS)
-
-=back
-
 =cut
