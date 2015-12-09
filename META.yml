@@ -14,6 +14,10 @@ meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: '1.4'
 name: Compress-LZ4Frame
+provides:
+  Compress::LZ4Frame:
+    file: lib/Compress/LZ4Frame.pm
+    version: '0.007'
 requires:
   perl: 5.010_001
 resources:
