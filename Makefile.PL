@@ -19,7 +19,7 @@ my %WriteMakefileArgs = (
   "MIN_PERL_VERSION" => "5.010_001",
   "NAME" => "Compress::LZ4Frame",
   "PREREQ_PM" => {},
-  "VERSION" => "0.007",
+  "VERSION" => "0.008",
   "test" => {
     "TESTS" => "t/*.t"
   }

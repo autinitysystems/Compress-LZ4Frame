@@ -1,6 +1,6 @@
 package Compress::LZ4Frame;
 # ABSTRACT: Compression package using the lz4frame library
-$Compress::LZ4Frame::VERSION = '0.007';
+$Compress::LZ4Frame::VERSION = '0.008';
 use 5.010_001;
 use strict;
 use warnings;
@@ -28,7 +28,7 @@ Compress::LZ4Frame - Compression package using the lz4frame library
 
 =head1 VERSION
 
-version 0.007
+version 0.008
 
 =head1 SYNOPSIS
 

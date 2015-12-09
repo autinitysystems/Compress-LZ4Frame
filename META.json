@@ -39,7 +39,7 @@
    "provides" : {
       "Compress::LZ4Frame" : {
          "file" : "lib/Compress/LZ4Frame.pm",
-         "version" : "0.007"
+         "version" : "0.008"
       }
    },
    "release_status" : "stable",
@@ -53,6 +53,10 @@
          "web" : "https://github.com/autinitysystems/Compress-LZ4Frame"
       }
    },
-   "version" : "0.007"
+   "version" : "0.008",
+   "x_contributors" : [
+      "Felix Bytow <felix.bytow@autinity.de> (DRAKO)",
+      "A. Sinan Ünür <nanis@unur.com> (NANIS)"
+   ]
 }
 
