@@ -5,6 +5,7 @@
 use strict;
 use warnings;
 
+use 5.010_001;
 use ExtUtils::MakeMaker;
 
 my %WriteMakefileArgs = (
@@ -15,6 +16,7 @@ my %WriteMakefileArgs = (
   },
   "DISTNAME" => "Compress-LZ4Frame",
   "LICENSE" => "perl",
+  "MIN_PERL_VERSION" => "5.010_001",
   "NAME" => "Compress::LZ4Frame",
   "PREREQ_PM" => {},
   "VERSION" => "0.007",

@@ -16,12 +16,23 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "0"
+            "ExtUtils::MakeMaker" : "0",
+            "perl" : "5.010_001"
          }
       },
       "develop" : {
          "requires" : {
             "Devel::PPPort" : "3.23"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "perl" : "5.010_001"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "perl" : "5.010_001"
          }
       }
    },
