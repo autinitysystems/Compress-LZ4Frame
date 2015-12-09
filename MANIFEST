@@ -3,6 +3,7 @@ Changes
 CompressLZ4Frame.xs
 LICENSE
 MANIFEST
+META.json
 META.yml
 Makefile.PL
 README

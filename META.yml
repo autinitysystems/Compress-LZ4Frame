@@ -12,4 +12,7 @@ meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: '1.4'
 name: Compress-LZ4Frame
-version: '0.006'
+resources:
+  bugtracker: https://github.com/autinitysystems/Compress-LZ4Frame/issues
+  repository: https://github.com/autinitysystems/Compress-LZ4Frame.git
+version: '0.007'
