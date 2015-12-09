@@ -68,6 +68,14 @@ Checks the given data for a valid LZ4 frame.
 The format of the compressed data is incompatible to that of L<Compress::LZ4>, thus they are not interoperable.
 Other than that this package should be compatible to every program/library working with the official lz4frame format.
 
+=head1 ACKNOWLEDGEMENTS
+
+Many thanks goes to the following individuals who helped improve C<Compress-LZ4Frame>:
+
+I<Yann Collet> for creating the LZ4 library and the lz4frame format.
+
+I<A. Sinan Ünür> for nmake support.
+
 =head1 SEE ALSO
 
 =for :list
