@@ -1,27 +1,29 @@
 {{$NEXT}}
 
+- Several Kwalitee issues fixed.
+
 0.006     2015-12-08 14:51:41+01:00 Europe/Berlin
 
-Maybe tags now work in Travis CI
-Added looks_like_lz4frame function
+- Maybe tags now work in Travis CI
+- Added looks_like_lz4frame function
 
 0.005     2015-12-08 14:12:42+01:00 Europe/Berlin
 
-Might be compatible with nmake now.
+- Might be compatible with nmake now
 
 0.004     2015-11-26 13:09:29+01:00 Europe/Berlin
 
-Hopefully fixed maintainer transition
+- Hopefully fixed maintainer transition
 
 0.003     2015-11-26 10:24:13+01:00 Europe/Berlin
 
-First release with company PAUSE account
-Still optimizing Travis integration
+- First release with company PAUSE account
+- Still optimizing Travis integration
 
 0.002     2015-11-26 09:22:01+01:00 Europe/Berlin
 
-Some adjustments for Travis
-Nice new README.md for github
+- Some adjustments for Travis
+- Nice new README.md for github
 
 0.001
 
