@@ -6,7 +6,7 @@ use warnings;
 
 use constant PKG => 'Compress::LZ4Frame';
 
-use Test::More tests => 9;
+use Test::More tests => 10;
 
 # try using
 BEGIN { use_ok(PKG, ':all') };
@@ -29,3 +29,8 @@ ok(length $compressed < length $input, 'compressed data is smaller than original
 ok(looks_like_lz4frame($compressed), 'compressed data should be detected as such');
 ok(!looks_like_lz4frame($decompressed), 'uncompressed data should be detected as such');
 
+# check decompressing concatenated data
+my $catted_compressed = $compressed . $compressed;
+my $catted_original = $input . $input;
+my $catted_decompressed = decompress $catted_compressed;
+is($catted_original, $catted_decompressed, 'decompressing concatenated frames yields concatenated original');

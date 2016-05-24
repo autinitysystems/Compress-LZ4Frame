@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+- Added support for concatenated LZ4 frames.
+
 0.008     2015-12-09 13:36:57+01:00 Europe/Berlin
 
 - Added acknowledgment section to pod.
