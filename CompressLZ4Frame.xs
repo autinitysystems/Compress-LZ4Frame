@@ -12,7 +12,7 @@ SV * decompress_single_frame(char * src, size_t src_len, size_t * bytes_processe
     size_t result, bytes_read, dest_len;
     LZ4F_decompressionContext_t ctx;
     LZ4F_frameInfo_t info;
-    SV * result = NULL;
+    SV * decompressed = NULL;
     char * dest = NULL;
 
     *bytes_processed = 0u;
@@ -33,12 +33,12 @@ SV * decompress_single_frame(char * src, size_t src_len, size_t * bytes_processe
     *bytes_processed += bytes_read;
 
     dest_len = (size_t)info.contentSize;
-    result = newSV(dest_len);
-    dest = SvPVX(result);
+    decompressed = newSV(dest_len);
+    dest = SvPVX(decompressed);
     if (!dest) {
         warn("Could not allocate enough memory (%zu Bytes)", dest_len);
         LZ4F_freeDecompressionContext(ctx);
-        SvREFCNT_dec(result);
+        SvREFCNT_dec(decompressed);
         return NULL;
     }
 
@@ -46,15 +46,15 @@ SV * decompress_single_frame(char * src, size_t src_len, size_t * bytes_processe
     LZ4F_freeDecompressionContext(ctx);
     if (LZ4F_isError(result)) {
         warn("Error during decompression: %s", LZ4F_getErrorName(result));
-        SvREFCNT_dec(result);
+        SvREFCNT_dec(decompressed);
         return NULL;
     }
     *bytes_processed += src_len;
 
-    SvCUR_set(result, dest_len);
-    SvPOK_on(result);
+    SvCUR_set(decompressed, dest_len);
+    SvPOK_on(decompressed);
 
-    return result;
+    return decompressed;
 }
 
 MODULE = Compress::LZ4Frame PACKAGE = Compress::LZ4Frame
