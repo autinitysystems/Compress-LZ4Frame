@@ -7,7 +7,7 @@
 
 #include "lz4frame.h"
 
-SV * decompress_single_frame(char * src, size_t src_len, size_t * bytes_processed)
+SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_processed)
 {
     size_t result, bytes_read, dest_len;
     LZ4F_decompressionContext_t ctx;
@@ -130,7 +130,7 @@ decompress(sv)
         if (!src_len)
             XSRETURN_NO;
 
-        RETVAL = decompress_single_frame(src, src_len, &bytes_read);
+        RETVAL = decompress_single_frame(aTHX_ src, src_len, &bytes_read);
         if (RETVAL == NULL)
             XSRETURN_UNDEF;
         src += bytes_read;
