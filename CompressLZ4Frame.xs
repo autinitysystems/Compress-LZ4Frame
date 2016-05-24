@@ -135,7 +135,7 @@ decompress(sv)
             XSRETURN_UNDEF;
         src += bytes_read;
         src_len = src_len >= bytes_read ? src_len - bytes_read : 0u;
-        while (src_len && (current = decompress_single_frame(src, src_len, &bytes_read)) && (bytes_read > 0))
+        while (src_len && (current = decompress_single_frame(aTHX_ src, src_len, &bytes_read)) && (bytes_read > 0))
         {
             sv_catsv(RETVAL, current);
             SvREFCNT_dec(current);
