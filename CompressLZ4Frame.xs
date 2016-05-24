@@ -20,7 +20,7 @@ SV * decompress_single_frame(char * src, size_t src_len, size_t * bytes_processe
     result = LZ4F_createDecompressionContext(&ctx, LZ4F_VERSION);
     if (LZ4F_isError(result)) {
         warn("Could not create decompression context: %s", LZ4F_getErrorName(result));
-        return result;
+        return NULL;
     }
 
     bytes_read = src_len;
@@ -28,7 +28,7 @@ SV * decompress_single_frame(char * src, size_t src_len, size_t * bytes_processe
     if (LZ4F_isError(result)) {
         warn("Could not read frame info: %s", LZ4F_getErrorName(result));
         LZ4F_freeDecompressionContext(ctx);
-        return result;
+        return NULL;
     }
     *bytes_processed += bytes_read;
 
