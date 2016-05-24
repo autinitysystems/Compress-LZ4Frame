@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"dec",
+				"decompress_single_frame"
+			],
+			[
+				"bytes_",
+				"bytes_processed"
+			],
+			[
 				"U",
 				"Unit.cxx"
 			],
@@ -13,9 +21,6 @@
 			]
 		]
 	},
-	"buffers":
-	[
-	],
 	"build_system": "",
 	"build_system_choices":
 	[
@@ -79,12 +84,9 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
-	"expanded_folders":
-	[
-		"/C/Users/drako/Desktop/Projekte/Compress-LZ4Frame"
-	],
 	"file_history":
 	[
+		"/C/Users/drako/Desktop/Projekte/Compress-LZ4Frame/Compress-LZ4Frame.sublime-project",
 		"/C/Users/drako/Desktop/Projekte/autinityfft/src/main.cxx",
 		"//nas/austausch/fby/Testmaschine-0000000000-172_17_3_217_3321-1-FFT.csv",
 		"/C/Users/drako/Desktop/Projekte/autinityfft/src/AutinityFFT.hxx",
@@ -97,7 +99,7 @@
 	],
 	"find":
 	{
-		"height": 27.0
+		"height": 37.0
 	},
 	"find_in_files":
 	{
@@ -111,6 +113,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"remove_tree",
+			"LZ4F_decom",
 			"size",
 			"clone",
 			"CLASS",
@@ -133,14 +137,6 @@
 		"whole_word": false,
 		"wrap": true
 	},
-	"groups":
-	[
-		{
-			"sheets":
-			[
-			]
-		}
-	],
 	"incremental_find":
 	{
 		"height": 27.0
@@ -181,7 +177,6 @@
 		"height": 126.0
 	},
 	"pinned_build_system": "",
-	"project": "Compress-LZ4Frame.sublime-project",
 	"replace":
 	{
 		"height": 50.0
@@ -218,7 +213,6 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
 	"settings":
 	{
 	},
