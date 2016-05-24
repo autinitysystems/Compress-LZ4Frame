@@ -1,4 +1,6 @@
-0.009     2016-05-24 12:05:55+02:00 Europe/Berlin
+0.009     2016-05-24 12:06:48+02:00 Europe/Berlin
+
+- Added support for concatenated LZ4 frames.
 
 0.008     2015-12-09 13:36:57+01:00 Europe/Berlin
 
