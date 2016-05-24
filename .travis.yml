@@ -16,7 +16,7 @@ before_install:
 install:
    - cpanm --quiet --notest --skip-satisfied Pod::Elemental::Transformer::List
    - cpanm --quiet --notest --skip-satisfied Dist::Zilla
-   - dzil authordeps --missing | cpanm --quit --notest
+   - dzil authordeps --missing | cpanm --quiet --notest
 script:
    - git checkout -b travis_build
    - dzil build
