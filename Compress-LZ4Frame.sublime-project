@@ -1,0 +1,10 @@
+{
+	"folders":
+	[
+		{
+            "name": "Compress::LZ4Frame",
+			"path": ".",
+            "file_exclude_patterns": ["*.sublime*"]
+		}
+	]
+}
