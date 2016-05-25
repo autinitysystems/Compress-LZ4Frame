@@ -92,15 +92,15 @@ compress(sv, level = 0)
         RETVAL = newSV(dest_len);
         dest = SvPVX(RETVAL);
         if (!dest) {
-            warn("Could not allocate enough memory (%zu Bytes)", dest_len);
             SvREFCNT_dec(RETVAL);
+            croak("Could not allocate enough memory (%zu Bytes)", dest_len);
             XSRETURN_UNDEF;
         }
 
         dest_len = LZ4F_compressFrame(dest, dest_len, src, src_len, &prefs);
         if (LZ4F_isError(dest_len)) {
-            warn("Error during compression: %s", LZ4F_getErrorName(dest_len));
             SvREFCNT_dec(RETVAL);
+            croak("Error during compression: %s", LZ4F_getErrorName(dest_len));
             XSRETURN_UNDEF;
         }
 
