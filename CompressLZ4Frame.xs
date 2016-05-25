@@ -19,15 +19,15 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
 
     result = LZ4F_createDecompressionContext(&ctx, LZ4F_VERSION);
     if (LZ4F_isError(result)) {
-        warn("Could not create decompression context: %s", LZ4F_getErrorName(result));
+        croak("Could not create decompression context: %s", LZ4F_getErrorName(result));
         return NULL;
     }
 
     bytes_read = src_len;
     result = LZ4F_getFrameInfo(ctx, &info, src, &bytes_read);
     if (LZ4F_isError(result)) {
-        warn("Could not read frame info: %s", LZ4F_getErrorName(result));
         LZ4F_freeDecompressionContext(ctx);
+        croak("Could not read frame info: %s", LZ4F_getErrorName(result));
         return NULL;
     }
     *bytes_processed += bytes_read;
@@ -36,17 +36,17 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
     decompressed = newSV(dest_len);
     dest = SvPVX(decompressed);
     if (!dest) {
-        warn("Could not allocate enough memory (%zu Bytes)", dest_len);
         LZ4F_freeDecompressionContext(ctx);
         SvREFCNT_dec(decompressed);
+        croak("Could not allocate enough memory (%zu Bytes)", dest_len);
         return NULL;
     }
 
     result = LZ4F_decompress(ctx, dest, &dest_len, src + bytes_read, &src_len, NULL);
     LZ4F_freeDecompressionContext(ctx);
     if (LZ4F_isError(result)) {
-        warn("Error during decompression: %s", LZ4F_getErrorName(result));
         SvREFCNT_dec(decompressed);
+        croak("Error during decompression: %s", LZ4F_getErrorName(result));
         return NULL;
     }
     *bytes_processed += src_len;
