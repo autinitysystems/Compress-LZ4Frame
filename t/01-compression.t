@@ -22,7 +22,7 @@ my @data = map { $_ => rand } (1..50000);
 my $input = pack('d*', @data);
 my $compressed = compress $input;
 my $decompressed = decompress $compressed;
-is($input, $decompressed, 'decompressing compressed data yields original');
+is($decompressed, $input, 'decompressing compressed data yields original');
 ok(length $compressed < length $input, 'compressed data is smaller than original');
 
 # check the checker
@@ -33,4 +33,4 @@ ok(!looks_like_lz4frame($decompressed), 'uncompressed data should be detected as
 my $catted_compressed = $compressed . $compressed;
 my $catted_original = $input . $input;
 my $catted_decompressed = decompress $catted_compressed;
-is($catted_original, $catted_decompressed, 'decompressing concatenated frames yields concatenated original');
+is($catted_decompressed, $catted_original, 'decompressing concatenated frames yields concatenated original');
