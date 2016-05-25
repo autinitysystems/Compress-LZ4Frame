@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+- Bug fix for major bug in 0.009
+
 0.009     2016-05-24 13:18:12+02:00 Europe/Berlin
 
 - Added support for concatenated LZ4 frames.

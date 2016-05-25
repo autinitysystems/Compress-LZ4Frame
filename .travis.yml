@@ -20,7 +20,4 @@ install:
 script:
    - git checkout -b travis_build
    - dzil build
-   - cd Compress-LZ4Frame-0.009
-   - perl Makefile.PL
-   - make
-   - perl -Mlib=lib -Mblib=blib travis-test.pl
+   - dzil test
