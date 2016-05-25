@@ -142,11 +142,11 @@ decompress(sv)
             src += bytes_read;
             src_len = src_len >= bytes_read ? src_len - bytes_read : 0u;
         }
-        if (current == NULL)
+        /*if (current == NULL)
         {
             SvREFCNT_dec(RETVAL);
             XSRETURN_UNDEF;
-        }
+        }*/
 
     OUTPUT:
         RETVAL

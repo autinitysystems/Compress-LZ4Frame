@@ -18,6 +18,7 @@ lz4hc.c
 lz4hc.h
 ppport.h
 t/01-compression.t
+t/test.pl
 weaver.ini
 xxhash.c
 xxhash.h
