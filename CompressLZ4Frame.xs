@@ -34,6 +34,12 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
 
     dest_len = (size_t)info.contentSize;
     decompressed = newSV(dest_len);
+
+    if (dest_len == 0u) {
+        LZ4F_freeDecompressionContext(ctx);
+        return decompressed;
+    }
+
     dest = SvPVX(decompressed);
     if (!dest) {
         warn("Could not allocate enough memory (%zu Bytes)", dest_len);
@@ -142,11 +148,11 @@ decompress(sv)
             src += bytes_read;
             src_len = src_len >= bytes_read ? src_len - bytes_read : 0u;
         }
-        /*if (current == NULL)
+        if (current == NULL)
         {
             SvREFCNT_dec(RETVAL);
             XSRETURN_UNDEF;
-        }*/
+        }
 
     OUTPUT:
         RETVAL
