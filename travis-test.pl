@@ -11,14 +11,11 @@ use Compress::LZ4Frame qw(:all);
 my @data = map { $_ => rand } (1..50000);
 my $input = pack('d*', @data);
 my $compressed = compress $input;
-unless (defined($compressed)) {
-    die 'compress returned undef';
-}
+print length($input) . "\n";
+print length($compressed) . "\n";
 
 my $decompressed = decompress $compressed;
-if ($decompressed ne $input) {
-    die 'decompressing compressed data yields original';
-}
+print length($decompressed) . "\n";
 
 my $catted_compressed = $compressed . $compressed;
 my $catted_original = $input . $input;
