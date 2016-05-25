@@ -34,12 +34,6 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
 
     dest_len = (size_t)info.contentSize;
     decompressed = newSV(dest_len);
-
-    if (dest_len == 0u) {
-        LZ4F_freeDecompressionContext(ctx);
-        return decompressed;
-    }
-
     dest = SvPVX(decompressed);
     if (!dest) {
         warn("Could not allocate enough memory (%zu Bytes)", dest_len);
@@ -119,10 +113,9 @@ SV *
 decompress(sv)
     SV * sv
     PREINIT:
-        char * src, * dest;
-        size_t src_len, dest_len;
-        size_t bytes_read;
-        SV * current;
+        char * src;
+        size_t src_len, bytes_read;
+        SV * current = (SV*)1; /* simply not NULL */
     CODE:
         SvGETMAGIC(sv);
         if (SvROK(sv) && !SvAMAGIC(sv)) {

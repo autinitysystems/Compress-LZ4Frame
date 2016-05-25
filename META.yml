@@ -17,10 +17,10 @@ name: Compress-LZ4Frame
 provides:
   Compress::LZ4Frame:
     file: lib/Compress/LZ4Frame.pm
-    version: '0.009'
+    version: '0.010'
 requires:
   perl: 5.010_001
 resources:
   bugtracker: https://github.com/autinitysystems/Compress-LZ4Frame/issues
   repository: https://github.com/autinitysystems/Compress-LZ4Frame.git
-version: '0.009'
+version: '0.010'

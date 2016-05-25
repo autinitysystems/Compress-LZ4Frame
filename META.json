@@ -39,7 +39,7 @@
    "provides" : {
       "Compress::LZ4Frame" : {
          "file" : "lib/Compress/LZ4Frame.pm",
-         "version" : "0.009"
+         "version" : "0.010"
       }
    },
    "release_status" : "stable",
@@ -53,6 +53,6 @@
          "web" : "https://github.com/autinitysystems/Compress-LZ4Frame"
       }
    },
-   "version" : "0.009"
+   "version" : "0.010"
 }
 
