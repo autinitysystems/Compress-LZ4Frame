@@ -94,7 +94,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         }
 
         // done uncompressing, now put the stuff into a scalar
-        decompressed = newSV();
+        decompressed = newSV(0);
         sv_usepvn_flags(decompressed, dest, dest_len, SV_SMAGIC);
     }
 
