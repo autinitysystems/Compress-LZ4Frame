@@ -7,6 +7,8 @@
 
 #include "lz4frame.h"
 
+enum { CHUNK_SIZE = 65536 }; // 64 KiB
+
 SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_processed)
 {
     size_t result, bytes_read, dest_len;
@@ -32,27 +34,69 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
     }
     *bytes_processed += bytes_read;
 
-    dest_len = (size_t)info.contentSize;
-    decompressed = newSV(dest_len);
-    dest = SvPVX(decompressed);
-    if (!dest) {
-        warn("Could not allocate enough memory (%zu Bytes)", dest_len);
+    if (info.contentSize)
+    {
+        // content size header has a value
+        dest_len = (size_t)info.contentSize;
+        decompressed = newSV(dest_len);
+        dest = SvPVX(decompressed);
+        if (!dest) {
+            warn("Could not allocate enough memory (%zu Bytes)", dest_len);
+            LZ4F_freeDecompressionContext(ctx);
+            SvREFCNT_dec(decompressed);
+            return NULL;
+        }
+
+        result = LZ4F_decompress(ctx, dest, &dest_len, src + bytes_read, &src_len, NULL);
         LZ4F_freeDecompressionContext(ctx);
-        SvREFCNT_dec(decompressed);
-        return NULL;
-    }
+        if (LZ4F_isError(result)) {
+            warn("Error during decompression: %s", LZ4F_getErrorName(result));
+            SvREFCNT_dec(decompressed);
+            return NULL;
+        }
+        *bytes_processed += src_len;
 
-    result = LZ4F_decompress(ctx, dest, &dest_len, src + bytes_read, &src_len, NULL);
-    LZ4F_freeDecompressionContext(ctx);
-    if (LZ4F_isError(result)) {
-        warn("Error during decompression: %s", LZ4F_getErrorName(result));
-        SvREFCNT_dec(decompressed);
-        return NULL;
+        SvCUR_set(decompressed, dest_len);
+        SvPOK_on(decompressed);
     }
-    *bytes_processed += src_len;
+    else
+    {
+        // content size header is 0 => decompress in chunks
+        size_t offset = 0u;
+        dest_len = CHUNK_SIZE;
+        Newx(dest, dest_len, char);
+        for (;;)
+        {
+            size_t to_read = src_len;
 
-    SvCUR_set(decompressed, dest_len);
-    SvPOK_on(decompressed);
+            if (!dest) {
+                warn("Could not allocate enough memory (%zu Bytes)", dest_len);
+                LZ4F_freeDecompressionContext(ctx);
+                return NULL;
+            }
+
+            result = LZ4F_decompress(ctx, dest + offset, &dest_len, src + bytes_read, &to_read, NULL);
+            if (LZ4F_isError(result)) {
+                warn("Error during decompression: %s", LZ4F_getErrorName(result));
+                Safefree(dest);
+                LZ4F_freeDecompressionContext(ctx);
+                return NULL;
+            }
+
+            if (!result) // 0 means no more data in this frame
+                break;
+
+            offset += dest_len;
+            // result contains the number of bytes that LZ4F is still expecting
+            dest_len += result;
+            src_len -= to_read;
+            Renew(dest, dest_len, char);
+        }
+
+        // done uncompressing, now put the stuff into a scalar
+        decompressed = newSV();
+        sv_usepvn_flags(decompressed, dest, dest_len, SV_SMAGIC);
+    }
 
     return decompressed;
 }

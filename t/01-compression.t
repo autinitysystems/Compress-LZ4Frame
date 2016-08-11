@@ -34,3 +34,6 @@ my $catted_compressed = $compressed . $compressed;
 my $catted_original = $input . $input;
 my $catted_decompressed = decompress $catted_compressed;
 is($catted_decompressed, $catted_original, 'decompressing concatenated frames yields concatenated original');
+
+# check decompressing data without size info
+
