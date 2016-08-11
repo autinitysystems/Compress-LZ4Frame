@@ -42,6 +42,7 @@ sub load_test_file {
     eval {
         use autodie ':io';
         open my $fh, '<', $_[0];
+        binmode $fh if $_[0] =~ m/[.]lz4$/;
         $content = do { local $/; <$fh> };
         close $fh;
     };
