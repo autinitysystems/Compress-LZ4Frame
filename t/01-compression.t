@@ -19,7 +19,7 @@ can_ok(PKG, 'looks_like_lz4frame');
 
 # try some simple compression
 my @data = map { $_ => rand } (1..50000);
-my $input = pack('d*', @data);
+my $input = pack 'd*', @data;
 my $compressed = compress $input;
 my $decompressed = decompress $compressed;
 is($decompressed, $input, 'decompressing compressed data yields original');
@@ -36,4 +36,8 @@ my $catted_decompressed = decompress $catted_compressed;
 is($catted_decompressed, $catted_original, 'decompressing concatenated frames yields concatenated original');
 
 # check decompressing data without size info
-
+my $hello_compressed =
+    "\x04\x22\x4d\x18\x64\x70\xb9\x0d\x00\x00\x80\x48\x65\x6c\x6c\x6f"
+.   "\x20\x77\x6f\x72\x6c\x64\x21\x0a\x00\x00\x00\x00\xe8\x1e\x4b\x08";
+my $hello_decompressed = decompress $hello_compressed;
+is($hello_decompressed, "Hello world!\n", 'decompressing frames where size header is 0 should work');
