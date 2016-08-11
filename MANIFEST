@@ -19,6 +19,7 @@ lz4hc.h
 ppport.h
 t/01-compression.t
 t/lorem.txt
+t/lorem.txt.lz4
 weaver.ini
 xxhash.c
 xxhash.h
