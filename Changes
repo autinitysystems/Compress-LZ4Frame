@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+- Decompressing frames without size is now supported.
+
 0.010     2016-05-25 13:20:40+02:00 Europe/Berlin
 
 - Bug fix for major bug in 0.009
