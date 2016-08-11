@@ -6,7 +6,7 @@ use warnings;
 
 use constant PKG => 'Compress::LZ4Frame';
 
-use Test::More tests => 12;
+use Test::More tests => 11;
 
 # try using
 BEGIN { use_ok(PKG, ':all') };
