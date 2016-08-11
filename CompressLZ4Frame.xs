@@ -33,8 +33,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         LZ4F_freeDecompressionContext(ctx);
         return NULL;
     }
-    else
-        *bytes_processed += bytes_read;
+    *bytes_processed += bytes_read;
 
     warn("content size: %d", (int)(info.contentSize));
     warn("result:       %d", (int)(result));
