@@ -6,6 +6,7 @@
 #include "ppport.h"
 
 #include "lz4frame.h"
+#include "lz4frame_static.h"
 
 enum { CHUNK_SIZE = 65536 }; // 64 KiB
 
@@ -27,7 +28,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
 
     bytes_read = src_len;
     result = LZ4F_getFrameInfo(ctx, &info, src, &bytes_read);
-    if (LZ4F_isError(result)) {
+    if (LZ4F_isError(result) && result != -LZ4F_ERROR_frameHeader_incomplete) {
         warn("Could not read frame info: %s", LZ4F_getErrorName(result));
         LZ4F_freeDecompressionContext(ctx);
         return NULL;
