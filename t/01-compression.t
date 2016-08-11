@@ -47,8 +47,8 @@ sub load_test_file {
     };
     return $content;
 }
-my $lorem_original   = read_test_file('lorem.txt');
-my $lorem_compressed = read_test_file('lorem.txt.lz4');
+my $lorem_original   = load_test_file 'lorem.txt';
+my $lorem_compressed = load_test_file 'lorem.txt.lz4';
 
 SKIP: {
     skip 'could not load test files', 1 unless $lorem_original && $lorem_compressed;
