@@ -4,7 +4,7 @@
       "Felix Bytow <felix.bytow@autinity.de>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 6.005, CPAN::Meta::Converter version 2.150005",
+   "generated_by" : "Dist::Zilla version 6.007, CPAN::Meta::Converter version 2.150005",
    "license" : [
       "perl_5"
    ],
@@ -39,7 +39,7 @@
    "provides" : {
       "Compress::LZ4Frame" : {
          "file" : "lib/Compress/LZ4Frame.pm",
-         "version" : "0.010"
+         "version" : "0.011"
       }
    },
    "release_status" : "stable",
@@ -53,6 +53,7 @@
          "web" : "https://github.com/autinitysystems/Compress-LZ4Frame"
       }
    },
-   "version" : "0.010"
+   "version" : "0.011",
+   "x_serialization_backend" : "Cpanel::JSON::XS version 3.0213"
 }
 
