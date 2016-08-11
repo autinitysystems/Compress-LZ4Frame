@@ -36,7 +36,7 @@ my $catted_decompressed = decompress $catted_compressed;
 is($catted_decompressed, $catted_original, 'decompressing concatenated frames yields concatenated original');
 
 # check decompressing data without size info
-my $hello_compressed = pack 'C*',
+my $hello_compressed = pack 'W*',
     0x04, 0x22, 0x4d, 0x18, 0x64, 0x70, 0xb9, 0x0d, 0, 0, 0x80, 0x48, 0x65. 0x6c, 0x6c, 0x6f,
     0x20, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x21, 0x0a, 0, 0, 0,    0,    0xe8, 0x1e, 0x4b, 0x08;
 my $hello_decompressed = decompress $hello_compressed;
