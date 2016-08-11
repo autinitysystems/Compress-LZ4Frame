@@ -33,9 +33,10 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         LZ4F_freeDecompressionContext(ctx);
         return NULL;
     }
-    *bytes_processed += bytes_read;
+    else
+        *bytes_processed += bytes_read;
 
-    if (info.contentSize)
+    if (info.contentSize && result != -LZ4F_ERROR_frameHeader_incomplete)
     {
         // content size header has a value
         dest_len = (size_t)info.contentSize;
