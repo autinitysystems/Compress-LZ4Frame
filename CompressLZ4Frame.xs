@@ -36,7 +36,9 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
     else
         *bytes_processed += bytes_read;
 
-    if (info.contentSize && result != -LZ4F_ERROR_frameHeader_incomplete)
+    warn("content size: %d", (int)(info.contentSize));
+    warn("result:       %d", (int)(result));
+    if (info.contentSize)
     {
         // content size header has a value
         dest_len = (size_t)info.contentSize;
