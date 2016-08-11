@@ -28,7 +28,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
 
     bytes_read = src_len;
     result = LZ4F_getFrameInfo(ctx, &info, src, &bytes_read);
-    if (LZ4F_isError(result) && result != -LZ4F_ERROR_frameHeader_incomplete) {
+    if (LZ4F_isError(result)) {
         warn("Could not read frame info: %s", LZ4F_getErrorName(result));
         LZ4F_freeDecompressionContext(ctx);
         return NULL;
