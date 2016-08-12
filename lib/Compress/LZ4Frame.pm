@@ -22,7 +22,7 @@ our %EXPORT_TAGS = (all => \@EXPORT_OK);
 
     my @data = map { rand } (1..50000);
     my $packed = pack('d*', @data);
-    
+
     # compress
     my $compressed = compress($packed);
     # or with checksum
@@ -72,7 +72,7 @@ Other than that this package should be compatible to every program/library worki
 
 Many thanks goes to the following individuals who helped improve C<Compress-LZ4Frame>:
 
-I<Yann Collet> for creating the LZ4 library and the lz4frame format.
+I<Yann Collet> for creating the LZ4 library and the lz4frame format, also for helping me fix nasty bugs.
 
 I<A. Sinan Ünür> for nmake support.
 
