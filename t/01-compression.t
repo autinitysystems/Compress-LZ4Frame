@@ -54,6 +54,7 @@ my $lorem_compressed = load_test_file 't/lorem.txt.lz4';
 SKIP: {
     skip 'could not load test files', 1 unless $lorem_original && $lorem_compressed;
 
+    $lorem_original =~ s/\r//g; # fix windows line endings
     my $lorem_decompressed = decompress $lorem_compressed;
     is($lorem_decompressed, $lorem_original, 'decompressing frames where size header is 0 should work');
 }
