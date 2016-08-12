@@ -1,8 +1,7 @@
 package Compress::LZ4Frame;
 # ABSTRACT: Compression package using the lz4frame library
-$Compress::LZ4Frame::VERSION = '0.011_001'; # TRIAL
-
-$Compress::LZ4Frame::VERSION = '0.011001';use 5.010_001;
+$Compress::LZ4Frame::VERSION = '0.011001';
+use 5.010_001;
 use strict;
 use warnings;
 use vars qw($VERSION);
@@ -29,7 +28,7 @@ Compress::LZ4Frame - Compression package using the lz4frame library
 
 =head1 VERSION
 
-version 0.011_001
+version 0.011001
 
 =head1 SYNOPSIS
 
