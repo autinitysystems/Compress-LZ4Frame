@@ -34,6 +34,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         return NULL;
     }
     *bytes_processed += bytes_read;
+    src_len -= bytes_read;
 
     if (info.contentSize)
     {
@@ -68,7 +69,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         Newx(dest, dest_len, char);
         for (;;)
         {
-            size_t to_read = src_len;
+            bytes_read = src_len;
 
             if (!dest) {
                 warn("Could not allocate enough memory (%zu Bytes)", dest_len);
@@ -76,7 +77,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
                 return NULL;
             }
 
-            result = LZ4F_decompress(ctx, dest + offset, &current_chunk, src + bytes_read, &to_read, NULL);
+            result = LZ4F_decompress(ctx, dest + offset, &current_chunk, src + bytes_read, &bytes_read, NULL);
             if (LZ4F_isError(result)) {
                 warn("Error during decompression: %s", LZ4F_getErrorName(result));
                 Safefree(dest);
@@ -97,7 +98,8 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
             // the size of the next chunk
             current_chunk = result;
             // how much is left to read from the source buffer
-            src_len -= to_read;
+            src_len -= bytes_read;
+            *bytes_processed += bytes_read;
 
             Renew(dest, dest_len, char);
         }
