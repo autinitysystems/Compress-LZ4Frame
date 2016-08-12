@@ -63,7 +63,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
     else
     {
         // content size header is 0 => decompress in chunks
-        size_t offset = 0u;
+        size_t offset = 0u, current_chunk = CHUNK_SIZE;
         dest_len = CHUNK_SIZE;
         Newx(dest, dest_len, char);
         for (;;)
@@ -76,7 +76,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
                 return NULL;
             }
 
-            result = LZ4F_decompress(ctx, dest + offset, &dest_len, src + bytes_read, &to_read, NULL);
+            result = LZ4F_decompress(ctx, dest + offset, &current_chunk, src + bytes_read, &to_read, NULL);
             if (LZ4F_isError(result)) {
                 warn("Error during decompression: %s", LZ4F_getErrorName(result));
                 Safefree(dest);
@@ -87,10 +87,18 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
             if (!result) // 0 means no more data in this frame
                 break;
 
-            offset += dest_len;
+            // current_chunk contains how much was read
+            // offset is where the current chunk started
             // result contains the number of bytes that LZ4F is still expecting
-            dest_len += result;
+            // in combination this should be the full new size of the destination buffer
+            dest_len = offset + current_chunk + result;
+            // where the next chunk will be read to
+            offset += current_chunk;
+            // the size of the next chunk
+            current_chunk = result;
+            // how much is left to read from the source buffer
             src_len -= to_read;
+
             Renew(dest, dest_len, char);
         }
 
