@@ -1,11 +1,11 @@
 
 
 This archive contains the distribution Compress-LZ4Frame,
-version 0.011:
+version 0.011_001:
 
   Compression package using the lz4frame library
 
-This software is copyright (c) 2015 - 2016 by afr-consulting GmbH.
+This software is copyright (c) 2016 by afr-consulting GmbH.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

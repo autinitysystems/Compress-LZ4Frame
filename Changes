@@ -1,6 +1,10 @@
-0.011     2016-08-11 15:22:58+02:00 Europe/Berlin
+0.011_001 2016-08-12 13:54:54+02:00 Europe/Berlin (TRIAL RELEASE)
 
-- Decompressing frames without size is now supported.
+- Unit tests now also work on linux :/
+
+0.011     2016-08-12 10:18:45+02:00 Europe/Berlin
+
+- Decompressing frames with unknown size is now supported.
 
 0.010     2016-05-25 13:20:40+02:00 Europe/Berlin
 

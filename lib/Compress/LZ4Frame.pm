@@ -1,7 +1,8 @@
 package Compress::LZ4Frame;
 # ABSTRACT: Compression package using the lz4frame library
-$Compress::LZ4Frame::VERSION = '0.011';
-use 5.010_001;
+$Compress::LZ4Frame::VERSION = '0.011_001'; # TRIAL
+
+$Compress::LZ4Frame::VERSION = '0.011001';use 5.010_001;
 use strict;
 use warnings;
 use vars qw($VERSION);
@@ -28,7 +29,7 @@ Compress::LZ4Frame - Compression package using the lz4frame library
 
 =head1 VERSION
 
-version 0.011
+version 0.011_001
 
 =head1 SYNOPSIS
 
@@ -36,7 +37,7 @@ version 0.011
 
     my @data = map { rand } (1..50000);
     my $packed = pack('d*', @data);
-    
+
     # compress
     my $compressed = compress($packed);
     # or with checksum
@@ -86,7 +87,7 @@ Other than that this package should be compatible to every program/library worki
 
 Many thanks goes to the following individuals who helped improve C<Compress-LZ4Frame>:
 
-I<Yann Collet> for creating the LZ4 library and the lz4frame format.
+I<Yann Collet> for creating the LZ4 library and the lz4frame format, also for helping me fix nasty bugs.
 
 I<A. Sinan Ünür> for nmake support.
 
@@ -110,7 +111,7 @@ Felix Bytow <felix.bytow@autinity.de>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2015 - 2016 by afr-consulting GmbH.
+This software is copyright (c) 2016 by afr-consulting GmbH.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

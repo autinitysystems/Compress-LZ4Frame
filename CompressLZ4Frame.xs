@@ -34,9 +34,8 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         return NULL;
     }
     *bytes_processed += bytes_read;
+    src_len -= bytes_read;
 
-    warn("content size: %d", (int)(info.contentSize));
-    warn("result:       %d", (int)(result));
     if (info.contentSize)
     {
         // content size header has a value
@@ -65,12 +64,12 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
     else
     {
         // content size header is 0 => decompress in chunks
-        size_t offset = 0u;
+        size_t dest_offset = 0u, src_offset = bytes_read, current_chunk = CHUNK_SIZE;
         dest_len = CHUNK_SIZE;
         Newx(dest, dest_len, char);
         for (;;)
         {
-            size_t to_read = src_len;
+            bytes_read = src_len;
 
             if (!dest) {
                 warn("Could not allocate enough memory (%zu Bytes)", dest_len);
@@ -78,7 +77,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
                 return NULL;
             }
 
-            result = LZ4F_decompress(ctx, dest + offset, &dest_len, src + bytes_read, &to_read, NULL);
+            result = LZ4F_decompress(ctx, dest + dest_offset, &current_chunk, src + src_offset, &bytes_read, NULL);
             if (LZ4F_isError(result)) {
                 warn("Error during decompression: %s", LZ4F_getErrorName(result));
                 Safefree(dest);
@@ -86,13 +85,27 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
                 return NULL;
             }
 
+            // bytes_processed is relevant for concatenated frames
+            *bytes_processed += bytes_read;
+
+            // current_chunk contains how much was read
+            // dest_offset is where the current chunk started
+            // result contains the number of bytes that LZ4F is still expecting
+            // in combination this should be the full new size of the destination buffer
+            dest_len = dest_offset + current_chunk + result;
+
             if (!result) // 0 means no more data in this frame
                 break;
 
-            offset += dest_len;
-            // result contains the number of bytes that LZ4F is still expecting
-            dest_len += result;
-            src_len -= to_read;
+            // where the next chunk will be read to
+            dest_offset += current_chunk;
+            // the size of the next chunk
+            current_chunk = result;
+            // how much is left to read from the source buffer
+            src_len -= bytes_read;
+            // where to read from
+            src_offset += bytes_read;
+
             Renew(dest, dest_len, char);
         }
 

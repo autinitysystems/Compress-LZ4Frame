@@ -39,10 +39,10 @@
    "provides" : {
       "Compress::LZ4Frame" : {
          "file" : "lib/Compress/LZ4Frame.pm",
-         "version" : "0.011"
+         "version" : "0.011_001"
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/autinitysystems/Compress-LZ4Frame/issues"
@@ -53,7 +53,7 @@
          "web" : "https://github.com/autinitysystems/Compress-LZ4Frame"
       }
    },
-   "version" : "0.011",
+   "version" : "0.011_001",
    "x_serialization_backend" : "Cpanel::JSON::XS version 3.0213"
 }
 
