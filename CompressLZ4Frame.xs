@@ -79,10 +79,8 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
                 return NULL;
             }
 
-            fprintf(stderr, "reading: %d\ninto buffer: %d\n", (int)current_chunk, (int)dest_len);
-
             result = LZ4F_decompress(ctx, dest + dest_offset, &current_chunk, src + src_offset, &bytes_read, NULL);
-            if (LZ4F_isError(result)) {
+            if (LZ4F_isError(result) || bytes_read > src_len) {
                 warn("Error during decompression: %s", LZ4F_getErrorName(result));
                 Safefree(dest);
                 LZ4F_freeDecompressionContext(ctx);
@@ -97,8 +95,6 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
             // result contains the number of bytes that LZ4F is still expecting
             // in combination this should be the full new size of the destination buffer
             dest_len = dest_offset + current_chunk + result;
-
-            fprintf(stderr, "remaining: %d\nexpected: %d\nread: %d\n===============\n", (int)(src_len - bytes_read), (int)result, (int)bytes_read);
 
             if (!result) // 0 means no more data in this frame
                 break;
