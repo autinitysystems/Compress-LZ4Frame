@@ -80,6 +80,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
             }
 
             result = LZ4F_decompress(ctx, dest + dest_offset, &current_chunk, src + src_offset, &bytes_read, NULL);
+            fprintf(stderr, "reading: %d read: %d\n", (int)src_len, (int)bytes_read);
             if (LZ4F_isError(result) || bytes_read > src_len) {
                 warn("Error during decompression: %s", LZ4F_getErrorName(result));
                 Safefree(dest);
