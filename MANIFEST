@@ -16,6 +16,7 @@ lz4frame.h
 lz4frame_static.h
 lz4hc.c
 lz4hc.h
+lz4opt.h
 ppport.h
 t/01-compression.t
 t/lorem.txt
