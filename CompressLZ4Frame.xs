@@ -73,6 +73,8 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         {
             bytes_read = src_len;
 
+            fprintf(stderr, "reading: %d\n", (int)bytes_read);
+
             if (!dest) {
                 warn("Could not allocate enough memory (%zu Bytes)", dest_len);
                 LZ4F_freeDecompressionContext(ctx);
@@ -96,7 +98,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
             // in combination this should be the full new size of the destination buffer
             dest_len = dest_offset + current_chunk + result;
 
-            fprintf(stderr, "remaining: %d\nexpected: %d\nead: %d\n", (int)(src_len - bytes_read), (int)result, (int)bytes_read);
+            fprintf(stderr, "remaining: %d\nexpected: %d\nread: %d\n===============\n", (int)(src_len - bytes_read), (int)result, (int)bytes_read);
 
             if (!result) // 0 means no more data in this frame
                 break;
