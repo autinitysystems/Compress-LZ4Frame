@@ -73,13 +73,13 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         {
             bytes_read = src_len;
 
-            fprintf(stderr, "reading: %d\n", (int)current_chunk);
-
             if (!dest) {
                 warn("Could not allocate enough memory (%zu Bytes)", dest_len);
                 LZ4F_freeDecompressionContext(ctx);
                 return NULL;
             }
+
+            fprintf(stderr, "reading: %d\ninto buffer: %d\n", (int)current_chunk, (int)dest_len);
 
             result = LZ4F_decompress(ctx, dest + dest_offset, &current_chunk, src + src_offset, &bytes_read, NULL);
             if (LZ4F_isError(result)) {
