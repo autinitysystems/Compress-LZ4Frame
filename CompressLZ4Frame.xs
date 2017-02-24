@@ -96,7 +96,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
             // in combination this should be the full new size of the destination buffer
             dest_len = dest_offset + current_chunk + result;
 
-            if (!result) // 0 means no more data in this frame
+            if (!result || !bytes_read) // 0 means no more data in this frame
                 break;
 
             // where the next chunk will be read to
@@ -107,8 +107,6 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
             src_len -= bytes_read;
             // where to read from
             src_offset += bytes_read;
-
-            fprintf(stderr, "remaining: %d\nexpecting: %d, read: %d\n", (int)src_len, (int)result, (int)bytes_read);
 
             Renew(dest, dest_len, char);
         }
