@@ -73,7 +73,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         {
             bytes_read = src_len;
 
-            fprintf(stderr, "reading: %d\n", (int)bytes_read);
+            fprintf(stderr, "reading: %d\n", (int)current_chunk);
 
             if (!dest) {
                 warn("Could not allocate enough memory (%zu Bytes)", dest_len);
