@@ -38,8 +38,6 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
     *bytes_processed += bytes_read;
     src_len -= bytes_read;
 
-    fprintf(stderr, "%d\n", (int)bytes_read);
-
     if (info.contentSize)
     {
         // content size header has a value
@@ -97,6 +95,8 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
             // result contains the number of bytes that LZ4F is still expecting
             // in combination this should be the full new size of the destination buffer
             dest_len = dest_offset + current_chunk + result;
+
+            fprintf(stderr, "remaining: %d\nexpected: %d\nead: %d\n", (int)(src_len - bytes_read), (int)result, (int)bytes_read);
 
             if (!result) // 0 means no more data in this frame
                 break;
