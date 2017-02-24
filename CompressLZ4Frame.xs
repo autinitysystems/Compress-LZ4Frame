@@ -5,6 +5,8 @@
 #include "XSUB.h"
 #include "ppport.h"
 
+#include <stdio.h>
+
 #include "lz4frame.h"
 #include "lz4frame_static.h"
 
@@ -67,7 +69,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         size_t dest_offset = 0u, src_offset = bytes_read, current_chunk = CHUNK_SIZE;
         dest_len = CHUNK_SIZE;
         Newx(dest, dest_len, char);
-        for (;;)
+        for (; bytes_read;)
         {
             bytes_read = src_len;
 
@@ -77,9 +79,11 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
                 return NULL;
             }
 
+            size_t old_current_chunk = current_chunk;
             result = LZ4F_decompress(ctx, dest + dest_offset, &current_chunk, src + src_offset, &bytes_read, NULL);
-            if (LZ4F_isError(result)) {
-                warn("Error during decompression: %s", LZ4F_getErrorName(result));
+            if (LZ4F_isError(result) || !current_chunk) {
+                if (LZ4F_isError(result))
+                    warn("Error during decompression: %s", LZ4F_getErrorName(result));
                 Safefree(dest);
                 LZ4F_freeDecompressionContext(ctx);
                 return NULL;

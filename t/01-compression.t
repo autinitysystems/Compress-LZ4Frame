@@ -6,7 +6,7 @@ use warnings;
 
 use constant PKG => 'Compress::LZ4Frame';
 
-use Test::More tests => 11;
+use Test::More tests => 12;
 
 # try using
 BEGIN { use_ok(PKG, ':all') };
@@ -57,4 +57,12 @@ SKIP: {
     $lorem_original =~ s/\r//g; # fix windows line endings
     my $lorem_decompressed = decompress $lorem_compressed;
     is($lorem_decompressed, $lorem_original, 'decompressing frames where size header is 0 should work');
+}
+
+my $bad_file = load_test_file 't/lz4_of_doom.lz4';
+SKIP: {
+    skip 'could not load test file', 1 unless $bad_file;
+
+    my $bad_content = decompress $bad_file;
+    is($bad_content, undef, 'decompressing bad data yields undef');
 }
