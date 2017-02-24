@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+- Bug fix for rare infinite loop + crash in decompression function
+
 0.011001  2016-08-12 14:01:57+02:00 Europe/Berlin
 
 - Unit tests now also work on linux :/
