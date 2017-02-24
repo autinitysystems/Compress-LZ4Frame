@@ -38,6 +38,8 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
     *bytes_processed += bytes_read;
     src_len -= bytes_read;
 
+    fprintf(stderr, "%d\n", (int)bytes_read);
+
     if (info.contentSize)
     {
         // content size header has a value
