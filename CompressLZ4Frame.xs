@@ -5,6 +5,8 @@
 #include "XSUB.h"
 #include "ppport.h"
 
+#include <stdio.h>
+
 #include "lz4frame.h"
 #include "lz4frame_static.h"
 
@@ -93,6 +95,8 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
             // result contains the number of bytes that LZ4F is still expecting
             // in combination this should be the full new size of the destination buffer
             dest_len = dest_offset + current_chunk + result;
+
+            printf("%d\n", int(result));
 
             if (!result) // 0 means no more data in this frame
                 break;
