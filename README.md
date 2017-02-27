@@ -13,7 +13,7 @@ which uses its own format: [Compress::LZ4](https://github.com/gray/compress-lz4)
 
 ## Copyright & License
 
-Copyright © 2015 - 2016, afr-consulting GmbH
+Copyright © 2015 - 2017, afr-consulting GmbH
 
 This library is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself.
