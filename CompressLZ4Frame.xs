@@ -5,8 +5,6 @@
 #include "XSUB.h"
 #include "ppport.h"
 
-#include <stdio.h>
-
 #include "lz4frame.h"
 #include "lz4frame_static.h"
 
@@ -79,7 +77,6 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
                 return NULL;
             }
 
-            size_t old_current_chunk = current_chunk;
             result = LZ4F_decompress(ctx, dest + dest_offset, &current_chunk, src + src_offset, &bytes_read, NULL);
             if (LZ4F_isError(result) || !current_chunk) {
                 if (LZ4F_isError(result))
