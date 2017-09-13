@@ -14,7 +14,7 @@ enum { CHUNK_SIZE = 65536 }; // 64 KiB
 
 SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_processed)
 {
-    warn("decompressing single frame\n");
+    warn("decompressing single frame: %zu Bytes\n", src_len);
 
     size_t result, bytes_read, dest_len;
     LZ4F_decompressionContext_t ctx;
