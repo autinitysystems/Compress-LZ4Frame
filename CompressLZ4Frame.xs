@@ -83,7 +83,8 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
                 return NULL;
             }
 
-            size_t old_current_chunk = current_chunk;
+            warn("reading from position %p [src] to %p [dest]\n", src + src_offset, dest + dest_offset);
+            warn("offsets are %zu [src] and %zu [dest]\n", src_offset, dest_offset);
             result = LZ4F_decompress(ctx, dest + dest_offset, &current_chunk, src + src_offset, &bytes_read, NULL);
             if (LZ4F_isError(result) || !current_chunk) {
                 if (LZ4F_isError(result))
