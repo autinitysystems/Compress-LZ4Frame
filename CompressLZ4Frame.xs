@@ -74,7 +74,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         Newx(dest, dest_len, char);
         for (; bytes_read;)
         {
-            warn("reading up to %zu Bytes [dest]\n", current_chunk);
+            warn("reading up to %zu Bytes [src] into %zu Bytes [dest]\n", src_len, current_chunk);
             bytes_read = src_len;
 
             if (!dest) {
