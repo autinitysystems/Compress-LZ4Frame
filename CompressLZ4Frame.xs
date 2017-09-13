@@ -72,7 +72,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         warn("reading chunked\n");
         dest_len = CHUNK_SIZE;
         Newx(dest, dest_len, char);
-        for (; bytes_read;)
+        for (;;)
         {
             warn("reading up to %zu Bytes [src] into %zu Bytes [dest]\n", src_len, current_chunk);
             bytes_read = src_len;
