@@ -69,10 +69,12 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
     {
         // content size header is 0 => decompress in chunks
         size_t dest_offset = 0u, src_offset = bytes_read, current_chunk = CHUNK_SIZE;
+        warn("reading chunked\n");
         dest_len = CHUNK_SIZE;
         Newx(dest, dest_len, char);
         for (; bytes_read;)
         {
+            warn("current chunk: %zu bytes\n", current_chunk);
             bytes_read = src_len;
 
             if (!dest) {
