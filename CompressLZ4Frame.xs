@@ -67,7 +67,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         size_t dest_offset = 0u, src_offset = bytes_read, current_chunk = CHUNK_SIZE;
         dest_len = CHUNK_SIZE;
         Newx(dest, dest_len, char);
-        for (; bytes_read;)
+        for (;;)
         {
             bytes_read = src_len;
 
