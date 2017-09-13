@@ -14,8 +14,6 @@ enum { CHUNK_SIZE = 65536 }; // 64 KiB
 
 SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_processed)
 {
-    warn("\ndecompressing single frame: up to %zu Bytes [src]\n", src_len);
-
     size_t result, bytes_read, dest_len;
     LZ4F_decompressionContext_t ctx;
     LZ4F_frameInfo_t info;
@@ -69,12 +67,10 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
     {
         // content size header is 0 => decompress in chunks
         size_t dest_offset = 0u, src_offset = bytes_read, current_chunk = CHUNK_SIZE;
-        warn("reading chunked\n");
         dest_len = CHUNK_SIZE;
         Newx(dest, dest_len, char);
         for (;;)
         {
-            warn("reading up to %zu Bytes [src] into %zu Bytes [dest]\n", src_len, current_chunk);
             bytes_read = src_len;
 
             if (!dest) {
@@ -83,8 +79,6 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
                 return NULL;
             }
 
-            warn("reading from position %p [src] to %p [dest]\n", src + src_offset, dest + dest_offset);
-            warn("offsets are %zu [src] and %zu [dest]\n", src_offset, dest_offset);
             result = LZ4F_decompress(ctx, dest + dest_offset, &current_chunk, src + src_offset, &bytes_read, NULL);
             if (LZ4F_isError(result) || !current_chunk) {
                 if (LZ4F_isError(result))
@@ -93,8 +87,6 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
                 LZ4F_freeDecompressionContext(ctx);
                 return NULL;
             }
-            warn("read %zu Bytes [src] into %zu Bytes [dest]\n", bytes_read, current_chunk);
-            warn("remainig %zu Bytes [src] and %zu Bytes [dest]\n", src_len - bytes_read, result);
 
             // bytes_processed is relevant for concatenated frames
             *bytes_processed += bytes_read;
@@ -124,8 +116,6 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         decompressed = newSV(0);
         sv_usepvn_flags(decompressed, dest, dest_len, SV_SMAGIC);
     }
-
-    warn("decompressed %zu Bytes, %zu Bytes processed\n", dest_len, *bytes_processed);
 
     return decompressed;
 }
