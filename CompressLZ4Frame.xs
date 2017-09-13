@@ -120,7 +120,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         sv_usepvn_flags(decompressed, dest, dest_len, SV_SMAGIC);
     }
 
-    warn("decompressed %zu Bytes, %zu Bytes remaining\n", dest_len, src_len - *bytes_processed);
+    warn("decompressed %zu Bytes, %zu Bytes processed\n", dest_len, *bytes_processed);
 
     return decompressed;
 }
