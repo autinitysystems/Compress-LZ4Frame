@@ -109,6 +109,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
             current_chunk = result;
             // how much is left to read from the source buffer
             src_len -= bytes_read;
+            warn("new source len: %zu bytes\n", src_len);
             // where to read from
             src_offset += bytes_read;
 
