@@ -14,7 +14,7 @@ enum { CHUNK_SIZE = 65536 }; // 64 KiB
 
 SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_processed)
 {
-    warn("\ndecompressing single frame: %zu Bytes\n", src_len);
+    warn("\ndecompressing single frame: up to %zu Bytes [src]\n", src_len);
 
     size_t result, bytes_read, dest_len;
     LZ4F_decompressionContext_t ctx;
@@ -74,7 +74,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
         Newx(dest, dest_len, char);
         for (; bytes_read;)
         {
-            warn("current chunk: %zu bytes\n", current_chunk);
+            warn("reading up to %zu Bytes [dest]\n", current_chunk);
             bytes_read = src_len;
 
             if (!dest) {
@@ -92,6 +92,8 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
                 LZ4F_freeDecompressionContext(ctx);
                 return NULL;
             }
+            warn("read %zu Bytes [src] into %zu Bytes [dest]\n", bytes_read, current_chunk);
+            warn("remainig %zu Bytes [src] and %zu Bytes [dest]\n", src_len - bytes_read, result);
 
             // bytes_processed is relevant for concatenated frames
             *bytes_processed += bytes_read;
@@ -102,9 +104,6 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
             // in combination this should be the full new size of the destination buffer
             dest_len = dest_offset + current_chunk + result;
 
-            warn("decompressed %zu bytes\n", current_chunk);
-            warn("still expecting %zu uncompressed bytes.\n", result);
-
             if (!result) // 0 means no more data in this frame
                 break;
 
@@ -114,7 +113,6 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
             current_chunk = result;
             // how much is left to read from the source buffer
             src_len -= bytes_read;
-            warn("%zu bytes read, new source len: %zu bytes\n", bytes_read, src_len);
             // where to read from
             src_offset += bytes_read;
 
