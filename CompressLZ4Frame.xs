@@ -102,6 +102,7 @@ SV * decompress_single_frame(pTHX_ char * src, size_t src_len, size_t * bytes_pr
             // in combination this should be the full new size of the destination buffer
             dest_len = dest_offset + current_chunk + result;
 
+            warn("decompressed %zu bytes\n", current_chunk);
             warn("still expecting %zu uncompressed bytes.\n", result);
 
             if (!result) // 0 means no more data in this frame
