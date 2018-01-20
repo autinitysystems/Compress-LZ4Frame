@@ -80,5 +80,5 @@ I<A. Sinan Ünür> for nmake support.
 
 =for :list
 * L<LZ4 on Github|https://github.com/Cyan4973/lz4>
-* L<Interoperable LZ4 implementations|http://cyan4973.github.io/lz4/#interoperable-lz4>
+* L<Interoperable LZ4 implementations|http://lz4.github.io/lz4/#interoperable-lz4>
 
